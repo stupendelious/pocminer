@@ -36,7 +36,7 @@ public class MinerCom extends UntypedActor {
 			// get new state
 			String netstatetext = null;
 			try {
-				ContentResponse response = client.newRequest(addr + "/burst?requestType=getMiningInfo").timeout(3, TimeUnit.SECONDS).send();
+				ContentResponse response = client.newRequest(addr + "/caret?requestType=getMiningInfo").timeout(3, TimeUnit.SECONDS).send();
 				netstatetext = response.getContentAsString();
 				System.out.println(netstatetext);
 			}
@@ -67,7 +67,7 @@ public class MinerCom extends UntypedActor {
 		else if(message instanceof MinerSupr.msgSubmitResult) {
 			System.out.println("Submitting share");
 			try {
-				ContentResponse response = client.POST(addr + "/burst")
+				ContentResponse response = client.POST(addr + "/caret")
 						.param("requestType", "submitNonce")
 						.param("secretPhrase", ((MinerSupr.msgSubmitResult)message).passPhrase)
 						.param("nonce", Convert.toUnsignedLong(((MinerSupr.msgSubmitResult)message).nonce))
